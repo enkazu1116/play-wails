@@ -1,19 +1,21 @@
-# README
+# GolangでのDesktopアプリの作成
+## Wails
+**公式引用**
+Goの力によって、Electronが軽量かつ高速になったようなもの
 
-## About
+**目的**
+1からデスクトップアプリを作成したことがなかったので、簡単なテーマで作成を行う。
+Wailsの特徴も活かして開発体験を実験する
 
-This is the official Wails Vanilla template.
+### 選定理由
+JavaやC#でのデスクトップアプリ、Windowsアプリの作成ではUIの作成に苦労した経験があり、
+WailsではUIの作成にHTML, CSS, JS(TS)を使える点でフロントとバックエンドを分けて書きやすい点、
+ReactやPreactなどのFWが使える点で車輪の再開発を防げて開発体験が良いと思ったため
 
-You can configure the project by editing `wails.json`. More information about the project settings can be found
-here: https://wails.io/docs/reference/project-config
+### 代替案
+Tauriが似たような構成で使えるので、そちらも良いかと考えられる。
+後ほど実際に試してみることとする
 
-## Live Development
-
-To run in live development mode, run `wails dev` in the project directory. This will run a Vite development
-server that will provide very fast hot reload of your frontend changes. If you want to develop in a browser
-and have access to your Go methods, there is also a dev server that runs on http://localhost:34115. Connect
-to this in your browser, and you can call your Go code from devtools.
-
-## Building
-
-To build a redistributable, production mode package, use `wails build`.
+## 作成テーマ(今後拡張予定)
+キーボード操作とマウス操作をグローバルに収集し、確認を行うアプリ
+Vimmerを目指すためにどれだけキーボードから手が離れたかを視認するアプリの開発とする。
