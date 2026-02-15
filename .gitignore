@@ -1,0 +1,21 @@
+build/bin
+node_modules
+frontend/dist
+
+# macOS
+.DS_Store
+
+# 環境変数
+.env
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Go build artifacts (when building in project root)
+*.exe
+*.dll
+*.so
+*.dylib
