@@ -5,12 +5,16 @@ jobs:
     job1:
         runs-on: ubuntu-latest
         outputs:
-            output1: ${{ steps.step1.outputs.greet}}
+            output1: ${{ steps.step1.outputs.greet }}
         steps:
             - id: step1
               run: echo "greet=Good morning" >> $GITHUB_OUTPUT
+
+            - run: echo "DEBUG job1 output1 = ${{ steps.step1.outputs.output1 }}"
+
     job2:
         needs: job1
         runs-on: ubuntu-latest
         steps:
+            - run: echo "DEBUG job output = ${{ needs.job1.outputs.output1 }}"
             - run: echo "Greeting is ${{ needs.job1.outputs.output1 }}"
