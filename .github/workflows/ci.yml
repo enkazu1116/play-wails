@@ -2,7 +2,15 @@ name: Simple CI
 on:
     workflow_dispatch:
 jobs:
-    hello:
+    job1:
+        runs-on: ubuntu-latest
+        outputs:
+            outpu1: ${{ steps.step1.outputs.result}}
+        steps:
+            - id: step1
+              run: echo "greet=Good morning" >> $GITHUB_OUTPUT
+    job2:
+        needs: job1
         runs-on: ubuntu-latest
         steps:
-            - run: echo "Hello World"
+            - run: echo "Greeting is ${{ needs.job1.outputs.output1 }}"
