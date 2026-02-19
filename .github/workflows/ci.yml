@@ -5,7 +5,7 @@ jobs:
     job1:
         runs-on: ubuntu-latest
         outputs:
-            outpu1: ${{ steps.step1.outputs.result}}
+            output1: ${{ steps.step1.outputs.greet}}
         steps:
             - id: step1
               run: echo "greet=Good morning" >> $GITHUB_OUTPUT
