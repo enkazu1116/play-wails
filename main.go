@@ -4,7 +4,7 @@ import (
 	"context"
 	"embed"
 	"log"
-	"play-wails/internal/db"
+	"play-wails/infarstructure/db"
 
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
@@ -41,6 +41,7 @@ func main() {
 				log.Fatal("【ERROR】TursoDBのクローズに失敗しました")
 				return
 			}
+
 		},
 		OnStartup: app.startup,
 	})

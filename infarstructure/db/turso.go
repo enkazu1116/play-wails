@@ -50,10 +50,47 @@ func NewTursoDB() (*TursoDB, error) {
 }
 
 /*
+ * リポジトリ実装で使用する*sql.DBを取得
+ */
+func (t *TursoDB) DB() *sql.DB {
+	return t.db
+}
+
+/*
  * TursoDBのインスタンスをクローズ
  */
 func (t *TursoDB) Close() error {
 	return t.db.Close()
+}
+
+/*
+ * work_sessions/time_recordsテーブルを存在しない場合に作成する
+ */
+func (t *TursoDB) Migrate(ctx context.Context) error {
+	_, err := t.db.ExecContext(ctx, `
+		CREATE TABLE IF NOT EXISTS work_sessions (
+			id         TEXT PRIMARY KEY,
+			run_id     TEXT NOT NULL,
+			task_id    TEXT NOT NULL,
+			start_time TEXT NOT NULL,
+			end_time   TEXT
+		);
+	`)
+	if err != nil {
+		return err
+	}
+	_, err = t.db.ExecContext(ctx, `
+		CREATE TABLE IF NOT EXISTS time_records (
+			id          TEXT PRIMARY KEY,
+			run_id      TEXT NOT NULL,
+			task_id     TEXT NOT NULL,
+			delete_flag INTEGER NOT NULL DEFAULT 0,
+			start_time  TEXT NOT NULL,
+			end_time    TEXT NOT NULL,
+			duration_ns INTEGER NOT NULL
+		);
+	`)
+	return err
 }
 
 /*
