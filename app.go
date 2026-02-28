@@ -3,25 +3,41 @@ package main
 import (
 	"context"
 	"fmt"
+	"play-wails/internal/db"
 )
 
-// App struct
+/*
+ * アプリの構造体
+ * コンテキストとDBのインスタンスを保持
+ * 起動はturso.goが責務を持つ
+ */
 type App struct {
 	ctx context.Context
+	db  *db.TursoDB
 }
 
-// NewApp creates a new App application struct
-func NewApp() *App {
-	return &App{}
+/*
+ * アプリのインスタンスを作成
+ */
+func NewApp(db *db.TursoDB) *App {
+	return &App{
+		db: db,
+	}
 }
 
-// startup is called when the app starts. The context is saved
-// so we can call the runtime methods
+/*
+ * アプリの起動
+ */
 func (a *App) startup(ctx context.Context) {
+	// コンテキストを保存
 	a.ctx = ctx
 }
 
-// Greet returns a greeting for the given name
 func (a *App) Greet(name string) string {
-	return fmt.Sprintf("Hello %s, It's show time!", name)
+	// Turso への接続＆クエリ実行テスト
+	if err := a.db.HealthCheck(a.ctx); err != nil {
+		return fmt.Sprintf("Hello %s, but Turso error: %v", name, err)
+	}
+
+	return fmt.Sprintf("Hello %s, Turso connection & query OK!", name)
 }
