@@ -3,7 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
-	"play-wails/internal/db"
+	"play-wails/infarstructure/db"
 )
 
 /*
